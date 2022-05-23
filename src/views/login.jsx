@@ -1,6 +1,6 @@
 import React, { Fragment, useState} from "react";
 
-export function TodoList({ todos }) {
+export function Login({ todos }) {
     return (<ul>
         {todos.map((todo) => (
          <li>Tarea</li>   
@@ -22,7 +22,7 @@ export function App(){
 
     return (
     <Fragment>
-        <TodoList todos={todos} />
+        <Login todos={todos} />
         <input type="email" placeholder="email" onChange={ (e) => {setEmail(e.target.value) }}/>
         <input type="password" placeholder="contraseña" onChange={ (e) => {setPassword(e.target.value) }}/>
         <button onClick={handleSubmit}>Ingresar</button>
