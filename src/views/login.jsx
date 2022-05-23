@@ -1,31 +1,42 @@
-import React, { Fragment, useState} from "react";
+import React, { useState } from "react";
 
-export function Login({ todos }) {
-    return (<ul>
-        {todos.map((todo) => (
-         <li>Tarea</li>   
-        ))}
-    </ul>
-      
-    )
-  }  
+export function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = () => {
+    console.log(email, password);
+    loginHttp();
+  };
 
-export function App(){
-    const [todos] = useState([
-        {id: 1, task: "Tarea 1", completed: false },  
-    ]);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const handleSubmit = () => {
-        console.log(email, password);
-    }
+  let urlMock = "http://localhost:8080";
+  const loginHttp = (logObj) => {
+    let url = urlMock + "/login";
+    
+    return fetch(url, {
+      method: "POST",
+      body: JSON.stringify(logObj),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+        // return response.data;
+        console.log(response, 'pasoooo');
+    //   if (response
+    //       (!response.ok) {
+    //     throw Error("Confirmar email y contraseña");
+    //   }
+            // return response.json();
+    })
+    .catch(error=>{
+        console.log(error, 'errrrorrr');
+    })
+  };
 
-    return (
-    <Fragment>
-        <Login todos={todos} />
-        <input type="email" placeholder="email" onChange={ (e) => {setEmail(e.target.value) }}/>
-        <input type="password" placeholder="contraseña" onChange={ (e) => {setPassword(e.target.value) }}/>
-        <button onClick={handleSubmit}>Ingresar</button>
-    </Fragment>    
-        );
+  return (
+      <form>
+          <input type="email" placeholder="email" onChange={(e) => { setEmail(e.target.value);}}/>
+          <input type="password" placeholder="contraseña" onChange={(e) => {setPassword(e.target.value);}}/>
+          <button onClick={handleSubmit}>Ingresar</button>
+      </form>
+  );
 }
