@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+// import {useNavigate}  from 'react-router-dom';
+import Logo from '../img/burg.png'
 
-export function App() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const navigate = useNavigate()
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();  
+    // navigate('/waiter')  
     const data = {
       "email": email,
       "password": password
@@ -23,50 +27,50 @@ export function App() {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    .then((response) => {
+    }).then((response) => {
+      const notification = document.querySelector('#notification');
       console.log('respuesta: ', response);
       if(!response.ok){
-        throw Error("Confirmar email y contraseña");
+        notification.innerText='Verifique email y contraseña';
       }
            
             return response.json();
     })
     .then(logObj => {
-      console.log('success: ', logObj);
+      // navigate('/waiter') 
+      // console.log('success: ', logObj);
     })
+    
+    // .then(res => res.json())
+    // .then(() =>{
+    //   navigate('/waiter') 
+    //   // console.log('Success:', response);
+    // })
+    // .catch((error) =>  {
+    //   const notification = document.querySelector('#notification');        
+    //   notification.innerText='Verifique email y contraseña';        
+    //   console.error('Error:', error)
+    // })
   }
-    // .then((response) => response.json())
    
-    // .catch((error) => {
-    //   console.error('Error: ', error);
-    // })
-
-
-        // return response.data;
-        // console.log(response, 'pasoooo');
-    //   if (response
-    //       (!response.ok) {
-    //     throw Error("Confirmar email y contraseña");
-    //   }
-            // return response.json();
-    // })
-    // .catch(error=>{
-    //     console.log(error, 'errrrorrr');
-    // })
-  // };
 
   return (
       <form className="loginForm">
-        <img src="../../public/img/burguerfinal.jpg"alt="Logo" />
+        <img className="Logo" src={Logo} alt="Logo" />
         <input type="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value);}}/>
         <input type="password" placeholder="Contraseña" onChange={(e) => {setPassword(e.target.value);}}/>
-          <section className="radioButtons">
-            <input type="radio" name="administrador" id="idAdministrador" /> <label>Administrador</label>
-            <input type="radio" name="mesero" id="idMesero" /> <label>Mesero</label>
-            <input type="radio" name="chef" id="idChef" /> <label>Chef</label>
+          <section className="rolesDesplegable">
+            <label for='Rol'>Rol</label>
+            <select name ='Rol'>
+              <option value='waiter'>Mesero</option>
+              <option value='chef'>Chef</option>
+              <option value='manage'>Admin</option>
+            </select>
           </section>
+          <div id='notification'></div>
           <button onClick={handleSubmit}>Ingresar</button>
       </form>
   );
 }
+
+
