@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// import {useNavigate}  from 'react-router-dom';
+import {useNavigate}  from 'react-router-dom';
 import Logo from '../img/burg.png'
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();  
     // navigate('/waiter')  
@@ -37,7 +37,7 @@ export default function Login() {
             return response.json();
     })
     .then(logObj => {
-      // navigate('/waiter') 
+      navigate('/waiter') 
       // console.log('success: ', logObj);
     })
     
