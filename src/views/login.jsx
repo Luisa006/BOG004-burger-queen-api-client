@@ -80,6 +80,9 @@ export default function Login() {
           </section>
           <div id='notification'></div>
           <button onClick={handleSubmit}>Ingresar</button>
+          <footer>
+            <h2>L&Y</h2>
+          </footer>
       </form>
   );
 }
