@@ -5,6 +5,7 @@ import Logo from '../img/burg.png'
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rol, setRol] = useState("");
   const navigate = useNavigate()
   
   const handleSubmit = (e) => {
@@ -34,59 +35,44 @@ export default function Login() {
     })
     .then(response =>{
       console.log('Success:', response);
-      localStorage.setItem('user', response.accessToken)
-      console.log('ROLES', response.user.roles);
-      if(response.accessToken && response.user.roles.admin === false){
-        let user = localStorage.getItem('user')
-        console.log("if: ", user)
-  
-      // navigate('/roles')
-    } else if (response.accessToken && response.user.roles.admin === true){
-      navigate('/boss')
-      let user = localStorage.getItem('user')
-      console.log("else if: ", user)
-    }else{
-      let user = localStorage.getItem('user')
-      console.log("else: ", user)
+      sessionStorage.setItem('user', response.accessToken)
+      console.log('ROLES', response.user.roles);     
+    
+    console.log(response.user.roles.admin)
+      if (response.accessToken && response.user.roles.admin === true){
+      navigate('/manage')
+      sessionStorage.setItem('rol', 'manage')
     }
-    // navigate('/waiter') 
-      })    
+     if (response.accessToken && response.user.roles.waiter ===true){
+        navigate('/waiter')
+        sessionStorage.setItem('rol', 'waiter')
+        // let user = localStorage.getItem('user')
+        // console.log("else if: ", user)
+    }
+     if (response.accessToken && response.user.roles.chef ===true){
+      navigate('/chef')
+      sessionStorage.setItem('rol', 'chef')
+      // let user = localStorage.getItem('user')
+      // console.log("else if: ", user)
+    
+      }
+    })
     .catch((error) =>  {
       const notification = document.querySelector('#notification');        
       notification.innerText='Verifique email y contraseña';        
       console.error('Error:', error)
     })
-    // .then((response) => {
-    //   const notification = document.querySelector('#notification');
-    //   console.log('respuesta: ', response);
-    //   if(!response.ok){
-    //     notification.innerText='Verifique email y contraseña';
-    //   }
-           
-    //         return response.json();
-    // })
-    // .then(logObj => {
-    //   navigate('/waiter') 
-    //   // console.log('success: ', logObj);
-    // })
-    
-  }
-  //  const  = document.getElementById('Rol').useState(
-  //    if 
-  //  )
-
-   const [rol, setRol] = useState("");
-  
-  
+       
+  }   
 
   return (
       <form className="loginForm">
         <img className="Logo" src={Logo} alt="Logo" />
         <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value);}}/>
         <input type="password" placeholder="Contraseña" value={password} onChange={(e) => {setPassword(e.target.value);}}/>
-          <section className="rolesDesplegable">
-            <label for='Rol'>Rol</label>
+          <section className="rolesDesplegable">            
             <select id='Rol' name ='Rol' value={rol} onChange={(e) => {setRol(e.target.value);}}>
+            <option value='rol'>Rol</option>
               <option value='waiter'>Mesero</option>
               <option value='chef' >Chef</option>
               <option value='manage' >Admin</option>
