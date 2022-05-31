@@ -68,8 +68,8 @@ export default function Login() {
   return (
       <form className="loginForm">
         <img className="Logo" src={Logo} alt="Logo" />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value);}}/>
-        <input type="password" placeholder="Contraseña" value={password} onChange={(e) => {setPassword(e.target.value);}}/>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value);}} data-testid='login-email-input'/>
+        <input type="password" placeholder="Contraseña" value={password} onChange={(e) => {setPassword(e.target.value);}} data-testid='login-email-input'/>
           <section className="rolesDesplegable">            
             <select id='Rol' name ='Rol' value={rol} onChange={(e) => {setRol(e.target.value);}}>
             <option value='rol'>Rol</option>
