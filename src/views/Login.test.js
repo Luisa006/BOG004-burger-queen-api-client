@@ -9,7 +9,7 @@ import {createMemoryHistory} from 'history'
 import {Router} from 'react-router-dom'
 
 
-it('componente login', async () => {
+it('componente Login', async () => {
   const history = createMemoryHistory()
   render(
     <Router location={history.location} navigator={history}>
@@ -23,6 +23,10 @@ fireEvent.change(passInput, {target: {value: '654321'}})
 //screen.getAllByPlaceholderText('Emailss')
 const btnLogin = screen.getByText("Ingresar")
 fireEvent.click(btnLogin)
-// await waitFor(() => screen.findByText('notification'))
+let error;
+// const notificationTxt = screen.queryByTestId('notification-input')
+await waitFor(() => error = screen.getByTestId('login-error'))
+expect(error.textContent).toBe('')
+
 });
 

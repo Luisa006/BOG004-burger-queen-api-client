@@ -197,6 +197,11 @@ header img {
 
 }
 
+.mensajeError{
+  color: white;
+  background-color: red;
+}
+
 .breakfast-uno {
   width: 90%;
   display: grid;

@@ -6,6 +6,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
+  const [error, setError] = useState('');
   const navigate = useNavigate()
   
   const handleSubmit = (e) => {
@@ -36,9 +37,9 @@ export default function Login() {
     .then(response =>{
       console.log('Success:', response);
       sessionStorage.setItem('user', response.accessToken)
-      console.log('ROLES', response.user.roles);     
+      // console.log('ROLES', response.user.roles);     
     
-    console.log(response.user.roles.admin)
+    // console.log(response.user.roles.admin)
       if (response.accessToken && response.user.roles.admin === true){
       navigate('/manage')
       sessionStorage.setItem('rol', 'manage')
@@ -53,19 +54,45 @@ export default function Login() {
       navigate('/chef')
       sessionStorage.setItem('rol', 'chef')
       // let user = localStorage.getItem('user')
-      // console.log("else if: ", user)
-    
+      // console.log("else if: ", user)    
+      }else{
+        switch (response) {
+          case "Email and password are required":
+            setError("Email and password are required")
+            break;
+          case "Email format is invalid":
+            console.log("format");
+            setError("Email format is invalid")
+            break;
+          case "Incorrect password":
+            console.log("password");
+            setError("Incorrect password")
+            break;
+          case "Password is too short":
+            console.log("short");
+            setError("Password is too short")
+            break;
+          case "Cannot find user":
+            console.log("no find user");
+            setError("Cannot find user")
+            break;
+          default:
+            break;
+        }
       }
     })
-    .catch((error) =>  {
-      const notification = document.querySelector('#notification');        
-      notification.innerText='Verifique email y contraseña';        
-      console.error('Error:', error)
-    })
+    .catch(error => console.error('Error:', error))
+  
+  //   .catch((error) =>  {
+  //     // const notification = document.querySelector('#notification');        
+  //     // notification.innerText='Verifique email y contraseña';        
+  //     console.error('Error:', error)
+  //   })
        
   }   
 
   return (
+    
       <form className="loginForm">
         <img className="Logo" src={Logo} alt="Logo" />
         <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value);}} data-testid='login-email-input'/>
@@ -78,12 +105,15 @@ export default function Login() {
               <option value='manage' >Admin</option>
             </select>
           </section>
-          <div id='notification'></div>
+          {/* <div id='notification'></div> */}
+          {/* {error && <p data-testid='login-error' className="messageError">HOLAAAA</p>} */}
+          <h2 className="mensajeError" data-testid='login-error'>{error}</h2>
           <button onClick={handleSubmit}>Ingresar</button>
-          <footer>
+          {/* <footer>
             <h2>L&Y</h2>
-          </footer>
-      </form>
+          </footer> */}
+      </form>      
+     
   );
 }
 
