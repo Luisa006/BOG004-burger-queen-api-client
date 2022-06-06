@@ -13,6 +13,8 @@ const Waiter = () => {
 
   const urlApi = "http://localhost:8080";
 
+  const [count, setCount] = useState(0);
+
   const validateHttpProducts = () => {
     fetch(`${urlApi}/products`, {
       method: "GET",
@@ -31,6 +33,8 @@ const Waiter = () => {
 
       .catch((error) => console.error("Error:", error));
   };
+
+   
 
   const handleClickBreakfast = () => {
     validateHttpProducts();
@@ -70,9 +74,13 @@ const Waiter = () => {
       <section className="clienteForm">
         <label className="nombreCliente">Cliente: </label>
         <input type="text" className="cliente" />
-        <label className="numeroPedido">Pedido: </label>
+        <label className="numeroPedido">Mesa: </label>
         <input type="text" className="pedido" />
       </section>
+      <div>
+ <h2></h2>
+      </div>
+      
     </div>
   );
 };
