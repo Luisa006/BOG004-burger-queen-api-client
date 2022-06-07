@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import Count from "../components/Count";
 import Logo from "../img/burg.png";
 import { Breakfast } from "./Breakfast.jsx";
 import { Lunch } from "./Lunch.jsx";
+import Product from "../components/Product";
 
 
 
@@ -13,7 +15,7 @@ const Waiter = () => {
 
   const urlApi = "http://localhost:8080";
 
-  const [count, setCount] = useState(0);
+
 
   const validateHttpProducts = () => {
     fetch(`${urlApi}/products`, {
@@ -69,6 +71,7 @@ const Waiter = () => {
           }
           
         </div>
+
       </section>
 
       <section className="clienteForm">
@@ -77,8 +80,11 @@ const Waiter = () => {
         <label className="numeroPedido">Mesa: </label>
         <input type="text" className="pedido" />
       </section>
-      <div>
- <h2></h2>
+      <div className="resumen">
+        <h2>CONTADOR</h2>
+        {/* <Breakfast products={products}/> */}
+        {/* <Product key={id}  name={name} price={price} id={id} />  */}
+
       </div>
       
     </div>

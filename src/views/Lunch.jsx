@@ -1,18 +1,14 @@
 import Mas from "../img/signo-de-mas.png";
+import Product from "../components/Product";
 
 export const Lunch = ({ products }) => {
   console.log("productosLunch ", products);
   const productsLunch = products.filter(elem => elem.type === 'Almuerzo')
   return productsLunch.map((product) => {
 
-    console.log('Despues del map ', product);
-       return (
+      return (
         
-        <div className="breakfastDiv" key={product.id.toString()}>
-          <h2>{product.name}</h2>
-          <h3>{product.price}</h3>
-          <img className="mas" src={Mas} alt="Mas" />
-        </div>
+        <Product key={product.id}  name={product.name} price={product.price} id={product.id} Mas={Mas}/>
       );
     
   });
