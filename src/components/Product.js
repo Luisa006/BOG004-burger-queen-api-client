@@ -1,22 +1,22 @@
 import { useState } from "react";
 
-const Product = ( { name, price, Mas, id } )  => {
 
-    const [numClicks, setNumClicks] = useState(0);
+const Product = ( { name, price, Mas, id, handle } )  => {
 
-    const clicked = () => {
+    const [numClicks, setNumClicks] = useState(1);
+
+    const clicked = () => {       
         setNumClicks(numClicks + 1);
-        console.log(numClicks);
-        
-
-        
+        console.log(numClicks, name);     
+        handle(numClicks, name, price, id)
     }
-
+    console.log('DATO NAME', {name, price});   
+    
     return (
         <div className="breakfastDiv" key={id.toString()}>
           <h2>{name}</h2>
           <h3>{price}</h3>
-          <img className="mas" src={Mas} alt="Mas" id = {id} onClick={clicked} />          
+          <img className="mas" src={Mas} alt="Mas" id = {id} onClick={()=> {clicked()}}/>          
         </div>
     );
 }

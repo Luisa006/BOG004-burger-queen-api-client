@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Count from "../components/Count";
 import Logo from "../img/burg.png";
 import { Breakfast } from "./Breakfast.jsx";
 import { Lunch } from "./Lunch.jsx";
-import Product from "../components/Product";
 
 
 
@@ -12,8 +10,13 @@ const Waiter = () => {
   const [isLunch, setIsLunch] = useState(false);
 
   const [products, setProducts] = useState([]); //---------------------
+  
+  //const [productsSelected, setProductsSelected] = useState([])
+//console.log(productsSelected);
+  
 
   const urlApi = "http://localhost:8080";
+
 
 
 
@@ -48,6 +51,18 @@ const Waiter = () => {
     setIsLunch(true);
     
   };
+  
+/*  const handleClick = (products) => {
+     console.log(products)
+         //  console.log("producto con concat", [product].concat(productsSelected) )
+        // setProductsSelected([products].concat(productsSelected))
+  //  console.log(setProductsSelected([products].concat(productsSelected)));
+    // console.log(productsSelected);
+    
+  }*/
+  const handleclick=(data,name, price, id) => {
+    console.log('data', data, name, price, id)
+  }
 
   return (
     <div className="waiter-css">
@@ -65,9 +80,9 @@ const Waiter = () => {
       <section className="breakfast">
         <div className="breakfast-uno">
           {isLunch? 
-          <Lunch products={products} />
+          <Lunch products={products} handleclick={handleclick} />
           :
-          <Breakfast products={products} />
+          <Breakfast products={products} handleclick={handleclick}/>
           }
           
         </div>
@@ -81,7 +96,8 @@ const Waiter = () => {
         <input type="text" className="pedido" />
       </section>
       <div className="resumen">
-        <h2>CONTADOR</h2>
+        <h2>RESUMEN</h2>
+        
         {/* <Breakfast products={products}/> */}
         {/* <Product key={id}  name={name} price={price} id={id} />  */}
 
