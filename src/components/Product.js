@@ -10,8 +10,7 @@ const Product = ( { name, price, Mas, id, handle } )  => {
         console.log(numClicks, name);     
         handle(numClicks, name, price, id)
     }
-    console.log('DATO NAME', {name, price});   
-    
+        
     return (
         <div className="breakfastDiv" key={id.toString()}>
           <h2>{name}</h2>

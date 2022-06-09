@@ -11,8 +11,10 @@ const Waiter = () => {
 
   const [products, setProducts] = useState([]); //---------------------
   
-  //const [productsSelected, setProductsSelected] = useState([])
-//console.log(productsSelected);
+  const [productSelected, setProductSelected] = useState({cliks: '', name:'', price:''})
+  console.log(productSelected);
+
+  let arrayProducts =[];
   
 
   const urlApi = "http://localhost:8080";
@@ -60,8 +62,17 @@ const Waiter = () => {
     // console.log(productsSelected);
     
   }*/
-  const handleclick=(data,name, price, id) => {
+  const handleclick=(data, name, price, id) => {
     console.log('data', data, name, price, id)
+
+    // let arrayProducts =[];
+    arrayProducts.push(data, name, price, id)
+    console.log('arrayProducts ---> ',arrayProducts);
+
+    // setProductSelected({cliks:data, name:name, price:price})
+    setProductSelected(arrayProducts)
+    console.log('PRODUCTSELECT ---> ', setProductSelected(arrayProducts));
+    
   }
 
   return (
@@ -97,10 +108,9 @@ const Waiter = () => {
       </section>
       <div className="resumen">
         <h2>RESUMEN</h2>
+        <p>{productSelected.name} {productSelected.price} {productSelected.cliks}</p>
         
-        {/* <Breakfast products={products}/> */}
-        {/* <Product key={id}  name={name} price={price} id={id} />  */}
-
+      
       </div>
       
     </div>
