@@ -11,10 +11,10 @@ const Waiter = () => {
 
   const [products, setProducts] = useState([]); //---------------------
   
-  const [productSelected, setProductSelected] = useState({cliks: '', name:'', price:''})
-  console.log(productSelected);
+  const [productsSelected, setProductsSelected] = useState([])
+  // console.log(productSelected);
 
-  let arrayProducts =[];
+  // let arrayProducts =[];
   
 
   const urlApi = "http://localhost:8080";
@@ -66,12 +66,15 @@ const Waiter = () => {
     console.log('data', data, name, price, id)
 
     // let arrayProducts =[];
-    arrayProducts.push(data, name, price, id)
-    console.log('arrayProducts ---> ',arrayProducts);
+    // arrayProducts.push(data, name, price, id)
+    // console.log('arrayProducts ---> ',arrayProducts);
 
-    // setProductSelected({cliks:data, name:name, price:price})
-    setProductSelected(arrayProducts)
-    console.log('PRODUCTSELECT ---> ', setProductSelected(arrayProducts));
+    setProductsSelected(currentProduct=>{
+      return([...currentProduct, {cliks:data, name:name, price:price}])
+      
+    })
+    // setProductSelected(arrayProducts)
+    // console.log('PRODUCTSELECT ---> ', setProductSelected(arrayProducts));
     
   }
 
@@ -106,12 +109,25 @@ const Waiter = () => {
         <label className="numeroPedido">Mesa: </label>
         <input type="text" className="pedido" />
       </section>
+      <h2>RESUMEN</h2>
+        {
+          productsSelected.map((product)=>(
+          //  if(product.name === producto.name){
+          //  return ( <div className="resumen">
+          //   <p>{product.name} {product.price} {product.cliks}</p>
+          // </div>)
+          //  }else
+          
       <div className="resumen">
-        <h2>RESUMEN</h2>
-        <p>{productSelected.name} {productSelected.price} {productSelected.cliks}</p>
+        <p>{product.name} {product.price} {product.cliks}</p>
+      </div>
+           
+          ))
+          
+      
+        }
         
       
-      </div>
       
     </div>
   );
