@@ -68,13 +68,21 @@ const Waiter = () => {
     // let arrayProducts =[];
     // arrayProducts.push(data, name, price, id)
     // console.log('arrayProducts ---> ',arrayProducts);
-
-    setProductsSelected(currentProduct=>{
-      return([...currentProduct, {cliks:data, name:name, price:price}])
-      
-    })
-    // setProductSelected(arrayProducts)
-    // console.log('PRODUCTSELECT ---> ', setProductSelected(arrayProducts));
+const findProduct = productsSelected.find(foodObject => foodObject.name === name )
+const findProductIndex = productsSelected.findIndex(foodObject => foodObject.name === name )
+if(findProduct === undefined){
+  setProductsSelected(currentProduct=>{
+    return([...currentProduct, {cliks:data, name:name, price:price, quantity:1}])
+  })
+} else {
+  
+  setProductsSelected(currentProduct=>{
+   return currentProduct[findProductIndex].quantity + 1
+  })
+  console.log("else", productsSelected);
+}
+// setProductSelected(arrayProducts)
+// console.log('PRODUCTSELECT ---> ', setProductSelected(arrayProducts));
     
   }
 
