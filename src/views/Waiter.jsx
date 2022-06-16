@@ -10,6 +10,8 @@ const Waiter = () => {
 
   const [productsSelected, setProductsSelected] = useState([]);
 
+  const [total, setTotal] = useState(0)
+
   const urlApi = "http://localhost:8080";
 
   const validateHttpProducts = () => {
@@ -55,18 +57,25 @@ const Waiter = () => {
           { cliks: data, name: name, price: price, quantity: 1 },
         ];
       });
+      console.log("productSelecteed", productsSelected);
+      productsSelected.forEach(item => setTotal (total+(item.price*item.quantity)))
+
     } else {
       setProductsSelected((currentProducts) => {
         const objectIndex = currentProducts.findIndex(
           (object) => object.name === name
         );
-        console.log("holaaa", objectIndex);
-        console.log(currentProducts[objectIndex].quantity);
-        currentProducts[objectIndex].quantity++;
+       
+        // console.log("holaaa", objectIndex);
+        // console.log(currentProducts[objectIndex].quantity);        
+        const quantity = currentProducts[objectIndex].quantity++;
+        console.log('after', quantity);
 
         return [...currentProducts];
       });
-      console.log("else", productsSelected);
+      console.log("productSelecteed", productsSelected);      
+      productsSelected.forEach(item => setTotal (total+(item.price*item.quantity)))
+
     }
   };
 
@@ -107,12 +116,17 @@ const Waiter = () => {
       </section>
       <h2>RESUMEN</h2>
       {productsSelected.map((product) => (
-        <div className="resumen">
+        <div className="resumen" key={Math.random()}>
           <p>
             {product.name} {product.price} {product.quantity}
           </p>
-        </div>
+        </div>        
       ))}
+      <div className="total">
+      <h3>TOTAL: {total}</h3>
+      </div>
+
+    
     </div>
   );
 };
